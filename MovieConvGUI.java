@@ -14,12 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -34,15 +29,16 @@ import javax.swing.JTextArea;
 import javax.swing.TransferHandler;
 import javax.swing.SwingUtilities;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.List;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 public class MovieConvGUI extends OutputStream {
@@ -81,19 +77,14 @@ public class MovieConvGUI extends OutputStream {
             }
         });
     }
-
-
-	
 		
 	/**
-		 * エンコードする
-		 */
+	 * エンコードする
+	 */
 		
-		static private Thread errRun=null;  
-		//static private InputStream stream;
-		//static private BufferedReader br;
-		Process p;
-		boolean encodeData(String in) throws IOException{
+	static private Thread errRun=null;  
+	Process p;
+	boolean encodeData(String in) throws IOException{
 			
 			System.out.println("\nencode....\n");
 			String out=in.replace(".","[encoded].");
@@ -109,7 +100,6 @@ public class MovieConvGUI extends OutputStream {
 		 	
 		 	public void run(){
 		 	try{
-  		 	//System.out.println("\nencode....\n");
 		 				
   		 String line; 
   		 BufferedReader br = new BufferedReader(new InputStreamReader(stream));
@@ -133,22 +123,15 @@ public class MovieConvGUI extends OutputStream {
 		
    		 errRun = new Thread(errStreamThread);
 		 errRun.start();
-		
-	
-		 //
 		 	
 		 }catch(Exception e){
 		 
 		 }finally{
-		 //if(br!=null)br.close();
 		 if(stream==null)
 		 	{
-		 		//stream.close();
 		 		p.destroy();
 		 	}
-		
 		 }
-			
 		
 		return true;
 
@@ -158,8 +141,6 @@ public class MovieConvGUI extends OutputStream {
 	/**
 	 * ドロップ操作の処理を行うクラス
 	 */
-	List<File> files;
-	
 	private class DropFileHandler extends TransferHandler {
  	
 		/**
@@ -182,12 +163,13 @@ public class MovieConvGUI extends OutputStream {
 		}
 	
  
-		/**
-		 * ドロップされたファイルを受け取る
-		 */
-		StringBuffer fileList;
-		@Override
-		public boolean importData(TransferSupport support) {
+	/**
+	 * ドロップされたファイルを受け取る
+	 */
+	List<File> files;
+	StringBuffer fileList;
+	@Override
+	public boolean importData(TransferSupport support) {
 			// 受け取っていいものか確認する
 			if (!canImport(support)) {
 		        return false;
@@ -248,7 +230,6 @@ public class MovieConvGUI extends OutputStream {
 
 		JPanel p1 = new JPanel();			
 					
-		//p1.setLayout(new FlowLayout(FlowLayout.LEFT));
     	p1.add(l1);
 		p1.add(tf01);
 			
@@ -260,8 +241,6 @@ public class MovieConvGUI extends OutputStream {
 		frame.getContentPane().add(p1, BorderLayout.PAGE_START);
 					
     	frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        //frame.setLocationRelativeTo(0,0);
-        //frame.setSize(1024,500);
         frame.setBounds(0, 0, 1024, 500);
 		frame.setVisible(true);
 
